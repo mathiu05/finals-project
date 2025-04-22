@@ -110,8 +110,7 @@ public class BankAccounts {
 
     public void withdraw(double amount) {
         if (status.equals("closed")) {
-            System.out.println("Account is closed. Balance: " + balance + " is available for withdrawal."); dito pre need lang natin dagdagan nang parang wait 
-            since account is closed reconfirm how much you want to withdraw 
+            System.out.println("Account is closed."); 
         } else if (amount > balance) {
             System.out.println("insufficient balance. Withdrawal cancelled");
         } else {
