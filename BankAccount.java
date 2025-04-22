@@ -163,6 +163,7 @@ public class BankAccounts {
 
     public void closeAccount() {
         this.status = "closed";
-        System.out.println("Account " + accountNo + " closed. Balance: " + balance + " is available for withdrawal.");
+        System.out.println("Account " + accountNo + " closed. Balance: " + balance + " is available for withdrawal."); Pre dito pano natin gagawing like imake 
+sure na nakawithdraw lahat nang balance bago niya iclose yung acc
     }
 }
