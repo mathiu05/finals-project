@@ -1,64 +1,38 @@
-package MidtermrepresentativeSerrano2;
+package FinProjSerrano;
 
 public class CreditCardAccount extends BankAccounts {
-
     private double creditLimit;
     private double charges;
 
-    public CreditCardAccount() {
-        creditLimit = 10000;
-        charges = 0;
-    }
-
-    public CreditCardAccount(int accountNo, String accountName, double creditLimit, double charges) {
-        super(String.valueOf(accountNo), accountName);
+    public CreditCardAccount(String accountNo, String accountName, double creditLimit) {
+        super(accountNo, accountName);
         this.creditLimit = creditLimit;
-        this.charges = charges;
-    }
-    public double getCreditLimit(){return creditLimit;}
-    public double getCharges(){return charges;}
-
-    public void payCard(double amount){
-        if(amount<charges){
-            System.out.println("You transaction was successful");
-            this.charges -= amount;
-        }else{
-            System.out.println("You are exceeding your credit limit");
-        }
+        this.charges = 0.0;
     }
 
-
-
-    public void inquireAvailableCredit(){
-        double availableCreditAmount;
-        availableCreditAmount = creditLimit-charges;
-        if(availableCreditAmount<creditLimit){
-            System.out.println("You still have "+ availableCreditAmount +" left.");
-        }else{
-            System.out.println("You have exceeded your credit limit.");
+    public void chargeToCard(double amount) throws InsufficientFundsException {
+        if (charges + amount > creditLimit) {
+            throw new InsufficientFundsException("Charge exceeds credit limit.");
         }
+        charges += amount;
+        logTransaction("Card Charge", amount);
+        System.out.println("Charge successful. Current charges: " + charges);
     }
 
-
-    public void chargeToCard(double amount){
-        double availableCreditAmount;
-        availableCreditAmount = creditLimit-charges;
-        if(availableCreditAmount>amount){
-            System.out.println("Your transaction was successful");
-            this.charges+=amount;
-        }else{
-            System.out.println("Transaction exceeded your credit limit.");
+    public void payCard(double amount) {
+        charges -= amount;
+        if (charges < 0) {
+            charges = 0;
         }
+        logTransaction("Card Payment", amount);
+        System.out.println("Payment successful. Remaining charges: " + charges);
     }
-    public void cashAdvance(double amount){
-        double availableCreditAmount;
-        availableCreditAmount = creditLimit-charges;
-        double fiftyPercent = availableCreditAmount * 0.5;
-        if(fiftyPercent>amount){
-            System.out.println("Cash advanced was approved");
-            this.charges += amount;
-        }else{
-            System.out.println("Cash advance was denied");
-        }
+
+    public double getCreditLimit() {
+        return creditLimit;
+    }
+
+    public double getCharges() {
+        return charges;
     }
 }
